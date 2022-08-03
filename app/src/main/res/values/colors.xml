@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFFF0000</color>
+
+    <color name="blue_50">#e3f2fd</color>
+    <color name="blue_200">#FF90CAF9</color>
+    <color name="blue_500">#FF2196f3</color>
+    <color name="blue_700">#FF1976d2</color>
+    <color name="cyan_200">#FF80deea</color>
+    <color name="cyan_700">#FF0097a7</color>
+
+    <color name="stroke1">#354E84</color>
+    <color name="stroke2">#476ab5</color>
+    <color name="background1">#EDF5FC</color>
+    <color name="background2">#E3E9F9</color>
+    <color name="background3">#D5DDE6</color>
+    <color name="background4">#7fb5eb</color>
+    <color name="background5">#9fcefc</color>
+    <color name="background6">#8bc3e0</color>
+    <color name="background7">#72969c</color>
+    <color name="textColor1">#272D2D</color>
+    <color name="textColor2">#6c8693</color>
+    <color name="textColor3">#165bf0</color>
+    <color name="TagColor">#6D9BC6</color>
+    <color name="unTagColor">#faf7f2</color>
+    <color name="btnColor">#2488C6</color>
+    <color name="color_green">#13D1BE</color>
+
+    <color name="draw_btn_click">#53E1DB</color>
+    <color name="draw_btn_not_click">#D6D7D7</color>
+</resources>

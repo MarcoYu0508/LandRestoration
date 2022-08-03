@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">LandRestoration</string>
+
+    <string name="import_data">導入資料</string>
+    <string name="delete">delete</string>
+    <string name="inspection">檢視</string>
+    <string name="export">導出</string>
+    <string name="append">新增</string>
+    <string name="input_project_name">請輸入專案名稱</string>
+</resources>
