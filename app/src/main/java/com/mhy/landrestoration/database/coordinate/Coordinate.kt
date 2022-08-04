@@ -13,3 +13,19 @@ data class Coordinate(
     @NonNull val E: Double,
     @NonNull val N: Double
 )
+
+fun List<Coordinate>.asOutputModel(): List<OutputCoordinate> {
+    return map {
+        OutputCoordinate(
+            name = it.name,
+            N = it.N,
+            E = it.E
+        )
+    }
+}
+
+data class OutputCoordinate(
+    val name: String,
+    val E: Double,
+    val N: Double
+)

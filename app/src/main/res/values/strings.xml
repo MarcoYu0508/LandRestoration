@@ -7,4 +7,11 @@
     <string name="export">導出</string>
     <string name="append">新增</string>
     <string name="input_project_name">請輸入專案名稱</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="edit">編輯</string>
+    <string name="reimport">重新匯入</string>
+    <string name="point_name">點名</string>
+    <string name="n_coordinate">N</string>
+    <string name="e_coordinate">E</string>
 </resources>

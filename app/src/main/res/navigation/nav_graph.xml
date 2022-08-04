@@ -22,5 +22,21 @@
         <action
             android:id="@+id/action_projectListFragment_to_entryFragment"
             app:destination="@id/entryFragment" />
+        <action
+            android:id="@+id/action_projectListFragment_to_pointListFragment"
+            app:destination="@id/pointListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pointListFragment"
+        android:name="com.mhy.landrestoration.ui.PointListFragment"
+        android:label="PointListFragment"
+        tools:layout="@layout/fragment_point_list">
+        <argument
+            android:name="project"
+            app:argType="com.mhy.landrestoration.database.coordinate.Project" />
+        <action
+            android:id="@+id/action_pointListFragment_to_projectListFragment"
+            app:destination="@id/projectListFragment" />
+    </fragment>
+
 </navigation>

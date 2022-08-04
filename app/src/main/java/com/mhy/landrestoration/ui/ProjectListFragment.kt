@@ -1,7 +1,6 @@
 package com.mhy.landrestoration.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mhy.landrestoration.R
 import com.mhy.landrestoration.adapter.ProjectListAdapter
+import com.mhy.landrestoration.database.coordinate.Project
 import com.mhy.landrestoration.databinding.FragmentProjectListBinding
 import com.mhy.landrestoration.util.ShowAlert
 import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
@@ -62,13 +62,29 @@ class ProjectListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        projectListAdapter = ProjectListAdapter(onItemInspect = {
-            Log.i(TAG, it.toString())
-        }, onItemExport = {
-            Log.i(TAG, it.toString())
-        }, onItemDelete = {
-            coordinateListViewModel.deleteProject(it)
-        })
+        projectListAdapter = ProjectListAdapter(
+            onItemInspect = {
+                val action =
+                    ProjectListFragmentDirections.actionProjectListFragmentToPointListFragment(
+                        project = it
+                    )
+                findNavController().navigate(action)
+            }, onItemExport = {
+                val types = arrayOf("csv", "txt", "ctl", "json")
+                showAlert.showSingleChoice(requireContext(), "輸出檔案種類", types, { dialog, index ->
+                    val type = types[index]
+                    exportProject(it, type)
+                    dialog.dismiss()
+                }, R.drawable.ic_baseline_add_24_blue)
+            }, onItemDelete = {
+                showAlert.show(
+                    requireContext(), "刪除專案", "請問要刪除專案${it.name}嗎?",
+                    "確定", { _, _ ->
+                        coordinateListViewModel.deleteProject(it)
+                    }, "取消", null
+                )
+            })
+
         binding?.apply {
             topAppBar.setNavigationOnClickListener {
                 findNavController().navigate(R.id.action_projectListFragment_to_entryFragment)
@@ -76,25 +92,7 @@ class ProjectListFragment : Fragment() {
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.append -> {
-                        val inputView = layoutInflater.inflate(R.layout.dialog_input, null)
-                        val input = inputView.findViewById<EditText>(R.id.et_input)
-                        showAlert.show(
-                            requireContext(),
-                            inputView,
-                            "請輸入專案名稱",
-                            null,
-                            "確定",
-                            { alertDialog, _ ->
-                                if (input.text.toString() == "") {
-                                    input.error = "未輸入專案名稱"
-                                } else {
-                                    coordinateListViewModel.createProject(input.text.toString())
-                                    alertDialog.dismiss()
-                                }
-                            },
-                            "取消",
-                            R.drawable.ic_baseline_add_24_blue
-                        )
+                        appendProject()
                         true
                     }
                     else -> false
@@ -113,8 +111,46 @@ class ProjectListFragment : Fragment() {
         coordinateListViewModel.insertErrorMessage.observe(viewLifecycleOwner) {
             showAlert.show(requireContext(), "錯誤", it)
         }
+
+        coordinateListViewModel.exportErrorMessage.observe(viewLifecycleOwner) {
+            showAlert.show(requireContext(), "錯誤", it)
+        }
+
+        coordinateListViewModel.exportPath.observe(viewLifecycleOwner) {
+            showAlert.show(
+                requireContext(),
+                "專案導出",
+                "成功導出至下載\n路徑: $it",
+                R.drawable.ic_baseline_done_24_bule
+            )
+        }
     }
 
+    private fun appendProject() {
+        val inputView = layoutInflater.inflate(R.layout.dialog_input, null)
+        val input: EditText = inputView.findViewById(R.id.et_input)
+        showAlert.show(
+            requireContext(),
+            inputView,
+            "請輸入專案名稱",
+            null,
+            "確定",
+            { alertDialog, _ ->
+                if (input.text.toString() == "") {
+                    input.error = "未輸入專案名稱"
+                } else {
+                    coordinateListViewModel.createProject(input.text.toString())
+                    alertDialog.dismiss()
+                }
+            },
+            "取消",
+            R.drawable.ic_baseline_add_24_blue
+        )
+    }
+
+    private fun exportProject(project: Project, type: String) {
+        coordinateListViewModel.saveCoordinatesToFile(project, type)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

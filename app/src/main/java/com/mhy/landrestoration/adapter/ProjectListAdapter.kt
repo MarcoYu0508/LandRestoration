@@ -12,8 +12,7 @@ class ProjectListAdapter(
     private val onItemInspect: (Project) -> Unit,
     private val onItemExport: (Project) -> Unit,
     private val onItemDelete: (Project) -> Unit
-) :
-    ListAdapter<Project, ProjectListAdapter.ProjectViewHolder>(DiffCallback) {
+) : ListAdapter<Project, ProjectListAdapter.ProjectViewHolder>(DiffCallback) {
 
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Project>() {
@@ -29,11 +28,6 @@ class ProjectListAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectViewHolder {
-
-//        viewHolder.itemView.setOnClickListener {
-//            val position = viewHolder.adapterPosition
-//            onItemInspect(getItem(position))
-//        }
         return ProjectViewHolder(
             ProjectItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -46,7 +40,7 @@ class ProjectListAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: ProjectViewHolder, position: Int, ) {
+    override fun onBindViewHolder(holder: ProjectViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 

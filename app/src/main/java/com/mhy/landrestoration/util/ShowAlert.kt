@@ -142,4 +142,23 @@ class ShowAlert {
             .setNeutralButton(neutralTitle, onNeutralClick)
         builder.show()
     }
+
+    fun showSingleChoice(
+        context: Context,
+        title: String,
+        items: Array<String>,
+        onItemClick: DialogInterface.OnClickListener,
+        icon: Int = this.icon,
+        cancelable: Boolean = true
+    ) {
+        val builder = MaterialAlertDialogBuilder(
+            context,
+            R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
+        )
+            .setTitle(title)
+            .setSingleChoiceItems(items, -1, onItemClick)
+            .setIcon(icon)
+            .setCancelable(cancelable)
+        builder.show()
+    }
 }
