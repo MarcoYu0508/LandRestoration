@@ -1,4 +1,4 @@
-# LandRestoration 土地複丈座標測量
+# LandRestoration 土地複丈坐標測量
 
 ## MVVM
 ## Room

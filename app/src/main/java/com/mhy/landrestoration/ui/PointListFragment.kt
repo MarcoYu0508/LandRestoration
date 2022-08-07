@@ -31,17 +31,7 @@ private const val TAG = "PointListFragment"
 private const val REIMPORT = "reimport"
 private const val IMPORT = "import"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PointListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PointListFragment : Fragment() {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = PointListFragment()
-    }
 
     private var binding: FragmentPointListBinding? = null
 
@@ -119,9 +109,11 @@ class PointListFragment : Fragment() {
         )
 
         binding?.apply {
-            topAppBar.title = "點位列表: " + (project?.name ?: "")
+            lifecycleOwner = viewLifecycleOwner
+
+            topAppBar.title = "點位列表: " + project.name
             topAppBar.setNavigationOnClickListener {
-                findNavController().navigate(R.id.action_pointListFragment_to_projectListFragment)
+                findNavController().popBackStack()
             }
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -137,7 +129,7 @@ class PointListFragment : Fragment() {
                     else -> false
                 }
             }
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = pointListAdapter
         }
 
@@ -172,9 +164,9 @@ class PointListFragment : Fragment() {
 
     private fun appendSingleCoordinate() {
         val inputView = layoutInflater.inflate(R.layout.dialog_point_form, null)
-        val etName: EditText = inputView.findViewById(R.id.et_name)
-        val etN: EditText = inputView.findViewById(R.id.et_n)
-        val etE: EditText = inputView.findViewById(R.id.et_e)
+        val etName: EditText = inputView.findViewById(R.id.etName)
+        val etN: EditText = inputView.findViewById(R.id.etN)
+        val etE: EditText = inputView.findViewById(R.id.etE)
         showAlert.show(
             requireContext(),
             inputView,
@@ -211,11 +203,11 @@ class PointListFragment : Fragment() {
 
     private fun updateCoordinate(coordinate: Coordinate) {
         val inputView = layoutInflater.inflate(R.layout.dialog_point_form, null)
-        val etName: EditText = inputView.findViewById(R.id.et_name)
+        val etName: EditText = inputView.findViewById(R.id.etName)
         etName.setText(coordinate.name)
-        val etN: EditText = inputView.findViewById(R.id.et_n)
+        val etN: EditText = inputView.findViewById(R.id.etN)
         etN.setText(coordinate.N.toString())
-        val etE: EditText = inputView.findViewById(R.id.et_e)
+        val etE: EditText = inputView.findViewById(R.id.etE)
         etE.setText(coordinate.E.toString())
         showAlert.show(
             requireContext(),

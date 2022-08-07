@@ -24,6 +24,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', "MapboxAccessToken", MAPBOX_ACCESS_TOKEN_MARCO
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -39,6 +42,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.asynclayoutinflater:asynclayoutinflater:1.0.0'
+    def multidex_version = "2.0.1"
+    implementation "androidx.multidex:multidex:$multidex_version"
 
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -60,4 +66,8 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    implementation 'com.mapbox.maps:android:10.7.0'
+
+    implementation("com.google.android.gms:play-services-location:20.0.0")
 }

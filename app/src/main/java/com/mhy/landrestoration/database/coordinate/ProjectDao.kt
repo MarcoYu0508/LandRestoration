@@ -9,6 +9,9 @@ interface ProjectDao {
     @Query("SELECT * FROM project ORDER BY name ASC")
     fun getProjects(): Flow<List<Project>>
 
+    @Query("SELECT * FROM project ORDER BY name ASC")
+    suspend fun getProjectsSync(): List<Project>
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(project: Project)
 

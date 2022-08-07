@@ -12,6 +12,9 @@ interface CoordinateDao {
     @Query("SELECT * FROM coordinate WHERE project_id = :projectId ORDER BY name ASC")
     suspend fun getByProjectSync(projectId: Int): List<Coordinate>
 
+    @Query("SELECT * FROM coordinate WHERE project_id IN (:projectIds) ORDER BY name ASC")
+    suspend fun getByProjectsSync(projectIds: List<Int>): List<Coordinate>
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(coordinate: Coordinate)
 

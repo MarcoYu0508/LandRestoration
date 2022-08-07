@@ -3,7 +3,6 @@ package com.mhy.landrestoration.viewmodels
 import android.app.Application
 import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.*
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mhy.landrestoration.database.AppDatabase
 import com.mhy.landrestoration.database.coordinate.Coordinate
@@ -22,10 +21,12 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
     private val projectRepository = ProjectRepository(AppDatabase.getDatabase(application))
     private val coordinateRepository = CoordinateRepository(AppDatabase.getDatabase(application))
 
-    val projects = projectRepository.projects
-
     private val _insertErrorMessage = MutableLiveData<String>()
     val insertErrorMessage: LiveData<String> = _insertErrorMessage
+
+    val projects = projectRepository.projects
+
+    suspend fun getProjectsSync() = projectRepository.getProjectsSync()
 
     fun createProject(name: String) {
         viewModelScope.launch {
@@ -50,6 +51,12 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
 
     fun getCoordinatesByProjectId(projectId: Int) =
         coordinateRepository.getCoordinatesByProjectId(projectId)
+
+    suspend fun getCoordinatesByProjectIdSync(projectId: Int) =
+        coordinateRepository.getCoordinatesByProjectIdSync(projectId)
+
+    suspend fun getCoordinatesByProjectIdsSync(projectIds: List<Int>) =
+        coordinateRepository.getCoordinatesByProjectIdsSync(projectIds)
 
     fun createCoordinate(coordinate: Coordinate) {
         viewModelScope.launch {

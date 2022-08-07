@@ -11,6 +11,8 @@ class ProjectRepository(private val database: AppDatabase) {
 
     val projects: LiveData<List<Project>> = database.projectDao().getProjects().asLiveData()
 
+    suspend fun getProjectsSync() = database.projectDao().getProjectsSync()
+
     suspend fun create(project: Project) = database.projectDao().insert(project)
 
     suspend fun delete(project: Project) = database.projectDao().delete(project)

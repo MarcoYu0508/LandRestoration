@@ -14,6 +14,9 @@ class CoordinateRepository(private val database: AppDatabase) {
     suspend fun getCoordinatesByProjectIdSync(projectId: Int) =
         database.coordinateDao().getByProjectSync(projectId)
 
+    suspend fun getCoordinatesByProjectIdsSync(projectIds: List<Int>) =
+        database.coordinateDao().getByProjectsSync(projectIds)
+
     suspend fun create(coordinate: Coordinate) = database.coordinateDao().insert(coordinate)
 
     suspend fun createAll(coordinates: List<Coordinate>) =

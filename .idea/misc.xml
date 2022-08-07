@@ -3,18 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_baseline_place_128.xml" value="0.19" />
+        <entry key="app/src/main/res/drawable/border.xml" value="0.252" />
+        <entry key="app/src/main/res/drawable/ic_baseline_place_128_black.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/ic_baseline_warning_24_red.xml" value="0.19" />
+        <entry key="app/src/main/res/drawable/ic_callout_item_background.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/line.xml" value="0.389" />
         <entry key="app/src/main/res/drawable/line_drawable.xml" value="0.389" />
+        <entry key="app/src/main/res/drawable/shadow.xml" value="0.4505" />
+        <entry key="app/src/main/res/drawable/thumb.xml" value="0.4505" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.5505208333333333" />
         <entry key="app/src/main/res/layout/dialog_input.xml" value="0.39492753623188404" />
         <entry key="app/src/main/res/layout/dialog_point_form.xml" value="0.3541666666666667" />
+        <entry key="app/src/main/res/layout/fragment_distance_page.xml" value="0.5135869565217391" />
         <entry key="app/src/main/res/layout/fragment_entry.xml" value="0.5348958333333333" />
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.53125" />
         <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.515625" />
+        <entry key="app/src/main/res/layout/fragment_map_box.xml" value="0.39492753623188404" />
         <entry key="app/src/main/res/layout/fragment_point_list.xml" value="0.53125" />
         <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.515625" />
+        <entry key="app/src/main/res/layout/fragment_restoration.xml" value="0.5135869565217391" />
+        <entry key="app/src/main/res/layout/fragment_restoration_page.xml" value="0.5135869565217391" />
+        <entry key="app/src/main/res/layout/item_callout_view.xml" value="0.5135869565217391" />
         <entry key="app/src/main/res/layout/point_item.xml" value="0.53125" />
+        <entry key="app/src/main/res/layout/point_select_layout.xml" value="0.5494791666666666" />
         <entry key="app/src/main/res/layout/project_item.xml" value="0.39492753623188404" />
         <entry key="app/src/main/res/menu/point_app_bar.xml" value="0.3333333333333333" />
         <entry key="app/src/main/res/menu/project_app_bar.xml" value="0.5" />

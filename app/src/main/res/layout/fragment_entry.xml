@@ -9,16 +9,31 @@
         tools:context=".ui.EntryFragment">
 
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_import"
-            android:layout_width="260dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/import_data"
-            android:textSize="24sp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnImport"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="@string/import_data"
+                android:textSize="24sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDistanceCalc"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="@string/distance_calc"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

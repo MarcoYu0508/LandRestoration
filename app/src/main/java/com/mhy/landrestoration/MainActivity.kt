@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         val list = listOf(
 //            Manifest.permission.CAMERA,
-//            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
         )
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         // Retrieve NavController from the NavHostFragment
         val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            .findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostFragment.navController
 
         // Set up the action bar for use with the NavController

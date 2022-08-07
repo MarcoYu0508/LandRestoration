@@ -161,4 +161,32 @@ class ShowAlert {
             .setCancelable(cancelable)
         builder.show()
     }
+
+    fun showMultipleChoice(
+        context: Context,
+        title: String,
+        items: Array<String>,
+        checked: BooleanArray,
+        onItemClick: DialogInterface.OnMultiChoiceClickListener,
+        positiveTitle: String?,
+        onPositiveClick: (AlertDialog, View) -> Unit,
+        neutralTitle: String?,
+        cancelable: Boolean = true
+    ) {
+
+        val builder = MaterialAlertDialogBuilder(
+            context,
+            R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
+        )
+            .setTitle(title)
+            .setMultiChoiceItems(items, checked, onItemClick)
+            .setCancelable(cancelable)
+            .setPositiveButton(positiveTitle, null)
+            .setNeutralButton(neutralTitle, null)
+        val dialog = builder.show()
+        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveBtn.setOnClickListener {
+            onPositiveClick(dialog, it)
+        }
+    }
 }

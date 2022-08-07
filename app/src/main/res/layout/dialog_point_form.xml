@@ -4,7 +4,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/et_name"
+        android:id="@+id/etName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
@@ -16,7 +16,7 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/et_n"
+        android:id="@+id/etN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
@@ -28,7 +28,7 @@
         android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/et_e"
+        android:id="@+id/etE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"

@@ -30,3 +30,9 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+//
+//task run() {
+//    doLast {
+//        println MAPBOX_ACCESS_TOKEN_MARCO
+//    }
+//}

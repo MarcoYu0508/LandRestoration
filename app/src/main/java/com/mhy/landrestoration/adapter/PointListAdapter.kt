@@ -27,7 +27,7 @@ class PointListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PointViewHolder {
-        return PointListAdapter.PointViewHolder(
+        return PointViewHolder(
             PointItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -56,11 +56,9 @@ class PointListAdapter(
                 onItemEdit(coordinate)
             }
 
-            binding.imageDelete.setOnClickListener {
+            binding.imgDelete.setOnClickListener {
                 onItemDelete(coordinate)
             }
         }
     }
-
-
 }

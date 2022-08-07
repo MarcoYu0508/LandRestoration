@@ -18,7 +18,7 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/txt_name"
+                android:id="@+id/txtName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -30,7 +30,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txt_n"
+                android:id="@+id/txtN"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -42,7 +42,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txt_e"
+                android:id="@+id/txtE"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
@@ -55,7 +55,7 @@
 
 
             <ImageView
-                android:id="@+id/image_delete"
+                android:id="@+id/imgDelete"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_baseline_delete_forever_24_red" />
@@ -63,7 +63,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_edit"
+            android:id="@+id/btnEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"

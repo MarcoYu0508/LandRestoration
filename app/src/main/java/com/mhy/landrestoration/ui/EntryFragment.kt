@@ -1,26 +1,20 @@
 package com.mhy.landrestoration.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.mhy.landrestoration.BuildConfig
 import com.mhy.landrestoration.R
 import com.mhy.landrestoration.databinding.FragmentEntryBinding
 
-/**
- * A simple [Fragment] subclass.
- * Use the [EntryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class EntryFragment : Fragment() {
+private const val TAG = "EntryFragment"
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = EntryFragment()
-    }
+class EntryFragment : Fragment() {
 
     private var binding: FragmentEntryBinding? = null
 
@@ -43,8 +37,13 @@ class EntryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+
             btnImport.setOnClickListener {
                 findNavController().navigate(R.id.action_entryFragment_to_projectListFragment)
+            }
+            btnDistanceCalc.setOnClickListener {
+                findNavController().navigate(R.id.action_entryFragment_to_distanceFragment)
             }
         }
     }

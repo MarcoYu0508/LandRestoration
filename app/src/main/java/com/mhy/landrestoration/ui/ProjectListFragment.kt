@@ -1,10 +1,12 @@
 package com.mhy.landrestoration.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,20 +17,11 @@ import com.mhy.landrestoration.database.coordinate.Project
 import com.mhy.landrestoration.databinding.FragmentProjectListBinding
 import com.mhy.landrestoration.util.ShowAlert
 import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
+import java.io.File
 
 private const val TAG = "ProjectListFragment"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProjectListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class ProjectListFragment : Fragment() {
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = ProjectListFragment()
-    }
 
     private var binding: FragmentProjectListBinding? = null
 
@@ -86,8 +79,10 @@ class ProjectListFragment : Fragment() {
             })
 
         binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+
             topAppBar.setNavigationOnClickListener {
-                findNavController().navigate(R.id.action_projectListFragment_to_entryFragment)
+                findNavController().popBackStack()
             }
             topAppBar.setOnMenuItemClickListener {
                 when (it.itemId) {
@@ -98,7 +93,7 @@ class ProjectListFragment : Fragment() {
                     else -> false
                 }
             }
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = projectListAdapter
         }
 
@@ -121,6 +116,13 @@ class ProjectListFragment : Fragment() {
                 requireContext(),
                 "專案導出",
                 "成功導出至下載\n路徑: $it",
+                "確定", null,
+                "檢視檔案", { _, _ ->
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    val uri = FileProvider.getUriForFile(requireContext(), requireActivity().packageName + ".provider", File(it))
+                    intent.setDataAndType(uri, "*/*")
+                    startActivity(intent)
+                },
                 R.drawable.ic_baseline_done_24_bule
             )
         }
@@ -128,7 +130,7 @@ class ProjectListFragment : Fragment() {
 
     private fun appendProject() {
         val inputView = layoutInflater.inflate(R.layout.dialog_input, null)
-        val input: EditText = inputView.findViewById(R.id.et_input)
+        val input: EditText = inputView.findViewById(R.id.etInput)
         showAlert.show(
             requireContext(),
             inputView,

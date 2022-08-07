@@ -52,13 +52,13 @@ class ProjectListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(project: Project) {
             binding.txtTitle.text = project.name
-            binding.btnShow.setOnClickListener {
+            binding.btnInspect.setOnClickListener {
                 onItemInspect(project)
             }
             binding.btnExport.setOnClickListener {
                 onItemExport(project)
             }
-            binding.imageDelete.setOnClickListener {
+            binding.imgDelete.setOnClickListener {
                 onItemDelete(project)
             }
         }
