@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.mhy.landrestoration.database.coordinate.Coordinate
-import com.mhy.landrestoration.database.coordinate.CoordinateDao
-import com.mhy.landrestoration.database.coordinate.Project
-import com.mhy.landrestoration.database.coordinate.ProjectDao
+import com.mhy.landrestoration.database.dao.CalculateResultDao
+import com.mhy.landrestoration.database.dao.CoordinateDao
+import com.mhy.landrestoration.database.dao.ProjectDao
+import com.mhy.landrestoration.database.model.CalculateResult
+import com.mhy.landrestoration.database.model.Coordinate
+import com.mhy.landrestoration.database.model.Project
 
-@Database(entities = [Project::class, Coordinate::class], version = 1, exportSchema = false)
+@Database(entities = [Project::class, Coordinate::class, CalculateResult::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun projectDao(): ProjectDao
     abstract fun coordinateDao(): CoordinateDao
+    abstract fun calculateResultDao(): CalculateResultDao
 
     companion object {
         @Volatile

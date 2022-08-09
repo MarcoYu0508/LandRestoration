@@ -3,9 +3,7 @@ package com.mhy.landrestoration.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.mhy.landrestoration.database.AppDatabase
-import com.mhy.landrestoration.database.coordinate.Project
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.mhy.landrestoration.database.model.Project
 
 class ProjectRepository(private val database: AppDatabase) {
 
@@ -13,7 +11,7 @@ class ProjectRepository(private val database: AppDatabase) {
 
     suspend fun getProjectsSync() = database.projectDao().getProjectsSync()
 
-    suspend fun create(project: Project) = database.projectDao().insert(project)
+    suspend fun createSync(project: Project) = database.projectDao().insertSync(project)
 
-    suspend fun delete(project: Project) = database.projectDao().delete(project)
+    suspend fun deleteSync(project: Project) = database.projectDao().deleteSync(project)
 }

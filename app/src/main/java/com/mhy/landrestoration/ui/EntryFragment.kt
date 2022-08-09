@@ -1,14 +1,12 @@
 package com.mhy.landrestoration.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.mhy.landrestoration.BuildConfig
 import com.mhy.landrestoration.R
 import com.mhy.landrestoration.databinding.FragmentEntryBinding
 

@@ -1,6 +1,7 @@
-package com.mhy.landrestoration.database.coordinate
+package com.mhy.landrestoration.database.dao
 
 import androidx.room.*
+import com.mhy.landrestoration.database.model.Coordinate
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,21 +16,24 @@ interface CoordinateDao {
     @Query("SELECT * FROM coordinate WHERE project_id IN (:projectIds) ORDER BY name ASC")
     suspend fun getByProjectsSync(projectIds: List<Int>): List<Coordinate>
 
-    @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(coordinate: Coordinate)
+    @Query("SELECT * FROM coordinate WHERE id = :id")
+    suspend fun getByIdSync(id: Int): Coordinate
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertAll(coordinates: List<Coordinate>)
+    suspend fun insertSync(coordinate: Coordinate)
+
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    suspend fun insertAllSync(coordinates: List<Coordinate>)
 
     @Update(onConflict = OnConflictStrategy.ABORT)
-    suspend fun update(coordinate: Coordinate)
+    suspend fun updateSync(coordinate: Coordinate)
 
     @Delete
-    suspend fun delete(coordinate: Coordinate)
+    suspend fun deleteSync(coordinate: Coordinate)
 
     @Query("DELETE FROM coordinate WHERE project_id = :projectId ")
-    suspend fun deleteByProject(projectId: Int)
+    suspend fun deleteByProjectSync(projectId: Int)
 
     @Delete
-    suspend fun deleteAll(coordinates: List<Coordinate>)
+    suspend fun deleteAllSync(coordinates: List<Coordinate>)
 }

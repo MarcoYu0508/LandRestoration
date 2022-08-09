@@ -19,8 +19,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mhy.landrestoration.R
 import com.mhy.landrestoration.adapter.PointListAdapter
-import com.mhy.landrestoration.database.coordinate.Coordinate
-import com.mhy.landrestoration.database.coordinate.Project
+import com.mhy.landrestoration.database.model.Coordinate
+import com.mhy.landrestoration.database.model.Project
 import com.mhy.landrestoration.databinding.FragmentPointListBinding
 import com.mhy.landrestoration.util.ShowAlert
 import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
@@ -258,8 +258,10 @@ class PointListFragment : Fragment() {
                 .putExtra(Intent.EXTRA_MIME_TYPES, extraMimeTypes)
                 .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         } else {
-            Intent(Intent.ACTION_OPEN_DOCUMENT, uri)
+            Intent()
+                .setAction(Intent.ACTION_OPEN_DOCUMENT)
                 .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("*/*")
                 .putExtra(Intent.EXTRA_MIME_TYPES, extraMimeTypes)
                 .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         }

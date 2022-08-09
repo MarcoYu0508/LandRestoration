@@ -3,7 +3,7 @@ package com.mhy.landrestoration.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import com.mhy.landrestoration.database.AppDatabase
-import com.mhy.landrestoration.database.coordinate.Coordinate
+import com.mhy.landrestoration.database.model.Coordinate
 
 class CoordinateRepository(private val database: AppDatabase) {
 
@@ -17,15 +17,17 @@ class CoordinateRepository(private val database: AppDatabase) {
     suspend fun getCoordinatesByProjectIdsSync(projectIds: List<Int>) =
         database.coordinateDao().getByProjectsSync(projectIds)
 
-    suspend fun create(coordinate: Coordinate) = database.coordinateDao().insert(coordinate)
+    suspend fun getCoordinateByIdSync(id: Int) = database.coordinateDao().getByIdSync(id)
 
-    suspend fun createAll(coordinates: List<Coordinate>) =
-        database.coordinateDao().insertAll(coordinates)
+    suspend fun createSync(coordinate: Coordinate) = database.coordinateDao().insertSync(coordinate)
 
-    suspend fun update(coordinate: Coordinate) = database.coordinateDao().update(coordinate)
+    suspend fun createAllSync(coordinates: List<Coordinate>) =
+        database.coordinateDao().insertAllSync(coordinates)
 
-    suspend fun delete(coordinate: Coordinate) = database.coordinateDao().delete(coordinate)
+    suspend fun updateSync(coordinate: Coordinate) = database.coordinateDao().updateSync(coordinate)
 
-    suspend fun deleteByProjectId(projectId: Int) =
-        database.coordinateDao().deleteByProject(projectId)
+    suspend fun deleteSync(coordinate: Coordinate) = database.coordinateDao().deleteSync(coordinate)
+
+    suspend fun deleteByProjectIdSync(projectId: Int) =
+        database.coordinateDao().deleteByProjectSync(projectId)
 }

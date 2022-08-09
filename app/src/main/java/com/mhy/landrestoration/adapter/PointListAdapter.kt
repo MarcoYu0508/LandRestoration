@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mhy.landrestoration.database.coordinate.Coordinate
+import com.mhy.landrestoration.database.model.Coordinate
 import com.mhy.landrestoration.databinding.PointItemBinding
 
 class PointListAdapter(
@@ -42,7 +42,7 @@ class PointListAdapter(
         holder.bind(getItem(position))
     }
 
-    class PointViewHolder(
+    inner class PointViewHolder(
         private var binding: PointItemBinding,
         private val onItemEdit: (Coordinate) -> Unit,
         private val onItemDelete: (Coordinate) -> Unit

@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mhy.landrestoration.R
 import com.mhy.landrestoration.adapter.ProjectListAdapter
-import com.mhy.landrestoration.database.coordinate.Project
+import com.mhy.landrestoration.database.model.Project
 import com.mhy.landrestoration.databinding.FragmentProjectListBinding
 import com.mhy.landrestoration.util.ShowAlert
 import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
@@ -119,7 +119,11 @@ class ProjectListFragment : Fragment() {
                 "確定", null,
                 "檢視檔案", { _, _ ->
                     val intent = Intent(Intent.ACTION_VIEW)
-                    val uri = FileProvider.getUriForFile(requireContext(), requireActivity().packageName + ".provider", File(it))
+                    val uri = FileProvider.getUriForFile(
+                        requireContext(),
+                        requireActivity().packageName + ".provider",
+                        File(it)
+                    )
                     intent.setDataAndType(uri, "*/*")
                     startActivity(intent)
                 },

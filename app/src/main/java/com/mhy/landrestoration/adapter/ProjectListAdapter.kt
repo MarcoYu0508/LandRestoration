@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mhy.landrestoration.database.coordinate.Project
+import com.mhy.landrestoration.database.model.Project
 import com.mhy.landrestoration.databinding.ProjectItemBinding
 
 class ProjectListAdapter(
@@ -44,7 +44,7 @@ class ProjectListAdapter(
         holder.bind(getItem(position))
     }
 
-    class ProjectViewHolder(
+    inner class ProjectViewHolder(
         private var binding: ProjectItemBinding,
         private val onItemInspect: (Project) -> Unit,
         private val onItemExport: (Project) -> Unit,

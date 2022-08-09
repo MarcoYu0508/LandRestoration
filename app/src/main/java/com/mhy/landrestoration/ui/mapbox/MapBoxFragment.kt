@@ -1,68 +1,44 @@
 package com.mhy.landrestoration.ui.mapbox
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.asynclayoutinflater.view.AsyncLayoutInflater
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.bindgen.Expected
 import com.mapbox.geojson.Feature
-import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
-import com.mapbox.maps.*
-import com.mapbox.maps.extension.style.expressions.dsl.generated.rgb
+import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.MapView
+import com.mapbox.maps.QueriedFeature
+import com.mapbox.maps.ResourceOptionsManager
 import com.mapbox.maps.extension.style.expressions.generated.Expression.Companion.interpolate
-import com.mapbox.maps.extension.style.image.image
-import com.mapbox.maps.extension.style.layers.addLayer
-import com.mapbox.maps.extension.style.layers.generated.rasterLayer
-import com.mapbox.maps.extension.style.layers.generated.symbolLayer
-import com.mapbox.maps.extension.style.layers.properties.generated.IconAnchor
-import com.mapbox.maps.extension.style.sources.addSource
-import com.mapbox.maps.extension.style.sources.generated.geoJsonSource
-import com.mapbox.maps.extension.style.sources.generated.rasterSource
-import com.mapbox.maps.extension.style.style
 import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.gestures.OnMapClickListener
 import com.mapbox.maps.plugin.gestures.OnMoveListener
-import com.mapbox.maps.plugin.gestures.addOnMapClickListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.LocationComponentPlugin
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.viewannotation.ViewAnnotationManager
-import com.mapbox.maps.viewannotation.viewAnnotationOptions
 import com.mhy.landrestoration.BuildConfig
-import com.mhy.landrestoration.R
 import com.mhy.landrestoration.databinding.FragmentMapBoxBinding
-import com.mhy.landrestoration.util.BitmapUtil
-import com.mhy.landrestoration.util.CoordinateUtil
 import com.mhy.landrestoration.util.ShowAlert
-import com.mhy.landrestoration.util.resize
 import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
-import kotlinx.coroutines.launch
-import org.json.JSONArray
-import org.json.JSONException
-import org.json.JSONObject
 
 private const val TAG = "MapBoxFragment"
 
- abstract class MapBoxFragment : Fragment(), OnMapClickListener {
+abstract class MapBoxFragment : Fragment(), OnMapClickListener {
 
     protected val coordinateListViewModel: CoordinateListViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -76,7 +52,7 @@ private const val TAG = "MapBoxFragment"
 
     private var binding: FragmentMapBoxBinding? = null
 
-    private val showAlert = ShowAlert()
+    protected val showAlert = ShowAlert()
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -121,7 +97,9 @@ private const val TAG = "MapBoxFragment"
     private lateinit var locationComponentPlugin: LocationComponentPlugin
 
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
-        mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
+        if (!isUserLocationInit) {
+            mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
+        }
     }
 
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
@@ -166,8 +144,6 @@ private const val TAG = "MapBoxFragment"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
 
@@ -203,7 +179,7 @@ private const val TAG = "MapBoxFragment"
     abstract fun onMapReady()
 
     override fun onMapClick(point: Point): Boolean {
-      return true
+        return true
     }
 
     protected fun onFeatureClicked(
@@ -247,7 +223,7 @@ private const val TAG = "MapBoxFragment"
         enrollIndicator()
     }
 
-     protected fun setupGesturesListener() {
+    protected fun setupGesturesListener() {
         mapView.gestures.addOnMoveListener(onMoveListener)
     }
 

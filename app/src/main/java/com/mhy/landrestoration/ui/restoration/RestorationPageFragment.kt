@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mhy.landrestoration.R
-import com.mhy.landrestoration.database.coordinate.Project
+import com.mhy.landrestoration.database.model.Project
+import com.mhy.landrestoration.enums.RestorationType
 import com.mhy.landrestoration.enums.SelectPointDisplayType
 import com.mhy.landrestoration.util.ShowAlert
+import com.mhy.landrestoration.util.hideKeyboard
 import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
 import com.mhy.landrestoration.viewmodels.CoordinateSelectViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +20,7 @@ abstract class RestorationPageFragment : Fragment() {
 
     protected val showAlert = ShowAlert()
 
-    protected var checked: BooleanArray? = null
+    private var checked: BooleanArray? = null
 
     protected val coordinateListViewModel: CoordinateListViewModel by lazy {
         val activity = requireNotNull(this.activity) {
@@ -36,15 +38,18 @@ abstract class RestorationPageFragment : Fragment() {
 
     abstract fun calculate()
 
-    protected fun selectPointFromList() {
-        showProjectSelectDialog(SelectPointDisplayType.List)
+    abstract fun restorationType(): RestorationType
+
+    private fun selectPointFromList() {
+
     }
 
-    protected fun selectPointFromMap() {
-        showProjectSelectDialog(SelectPointDisplayType.Map)
+    private fun selectPointFromMap() {
+        hideKeyboard()
+        findNavController().navigate(R.id.action_distanceFragment_to_selectPointMapFragment)
     }
 
-    private fun showProjectSelectDialog(type: SelectPointDisplayType) {
+    protected fun showProjectSelectDialog(type: SelectPointDisplayType) {
         lifecycleScope.launch {
             val projects = coordinateListViewModel.getProjectsSync()
             val projectNames =
@@ -62,7 +67,7 @@ abstract class RestorationPageFragment : Fragment() {
             }
             showAlert.showMultipleChoice(
                 requireContext(),
-                "選擇專案",
+                "選擇專案: ${type.tag}",
                 projectNames,
                 checked!!,
                 { _, which, isChecked ->
@@ -81,29 +86,19 @@ abstract class RestorationPageFragment : Fragment() {
                 "確定",
                 { dialog, _ ->
                     if (selected.size == 0) {
-                        showAlert.show(requireContext(),"錯誤","請選擇專案")
+                        showAlert.show(requireContext(), "錯誤", "請選擇專案")
                         return@showMultipleChoice
                     }
                     coordinateSelectViewModel.setSelectedProjects(selected)
-                    findNavController().navigate(R.id.action_distanceFragment_to_selectPointMapFragment)
+                    if (type == SelectPointDisplayType.Map) {
+                        selectPointFromMap()
+                    } else if (type == SelectPointDisplayType.List) {
+                        selectPointFromList()
+                    }
                     dialog.dismiss()
                 },
                 "取消"
             )
         }
-
     }
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_restoration_page, container, false)
-//    }
 }

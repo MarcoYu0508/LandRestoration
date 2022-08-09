@@ -20,5 +20,8 @@
     <string name="calculate">計算</string>
     <string name="calculate_result">計算結果</string>
     <string name="length_meter">L(m)</string>
+    <string name="select">選擇</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

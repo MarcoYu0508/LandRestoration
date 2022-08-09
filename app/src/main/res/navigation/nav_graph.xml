@@ -34,7 +34,7 @@
         tools:layout="@layout/fragment_point_list">
         <argument
             android:name="project"
-            app:argType="com.mhy.landrestoration.database.coordinate.Project" />
+            app:argType="com.mhy.landrestoration.database.model.Project" />
 
     </fragment>
 
@@ -42,7 +42,7 @@
         android:id="@+id/distanceFragment"
         android:name="com.mhy.landrestoration.ui.restoration.distance.DistanceFragment"
         android:label="DistanceFragment"
-        tools:layout="@layout/fragment_restoration" >
+        tools:layout="@layout/fragment_restoration">
         <action
             android:id="@+id/action_distanceFragment_to_selectPointMapFragment"
             app:destination="@id/selectPointMapFragment" />
@@ -51,6 +51,6 @@
         android:id="@+id/selectPointMapFragment"
         android:name="com.mhy.landrestoration.ui.mapbox.SelectPointMapFragment"
         android:label="SelectPointMapFragment"
-        tools:layout="@layout/fragment_map_box"/>
+        tools:layout="@layout/fragment_map_box" />
 
 </navigation>

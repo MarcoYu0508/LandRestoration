@@ -1,6 +1,7 @@
-package com.mhy.landrestoration.database.coordinate
+package com.mhy.landrestoration.database.dao
 
 import androidx.room.*
+import com.mhy.landrestoration.database.model.Project
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -13,11 +14,11 @@ interface ProjectDao {
     suspend fun getProjectsSync(): List<Project>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(project: Project)
+    suspend fun insertSync(project: Project)
 
     @Update
-    suspend fun update(project: Project)
+    suspend fun updateSync(project: Project)
 
     @Delete
-    suspend fun delete(project: Project)
+    suspend fun deleteSync(project: Project)
 }

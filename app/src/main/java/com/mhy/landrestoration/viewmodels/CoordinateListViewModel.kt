@@ -5,21 +5,26 @@ import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.*
 import com.google.gson.GsonBuilder
 import com.mhy.landrestoration.database.AppDatabase
-import com.mhy.landrestoration.database.coordinate.Coordinate
-import com.mhy.landrestoration.database.coordinate.Project
-import com.mhy.landrestoration.database.coordinate.asOutputModel
+import com.mhy.landrestoration.database.model.CalculateResult
+import com.mhy.landrestoration.database.model.Coordinate
+import com.mhy.landrestoration.database.model.Project
+import com.mhy.landrestoration.database.model.asOutputModel
+import com.mhy.landrestoration.repository.CalculateResultRepository
 import com.mhy.landrestoration.repository.CoordinateRepository
 import com.mhy.landrestoration.repository.ProjectRepository
 import com.mhy.landrestoration.util.FileUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 private const val TAG = "CoordinateListViewModel"
 
 class CoordinateListViewModel(application: Application) : AndroidViewModel(application) {
     private val projectRepository = ProjectRepository(AppDatabase.getDatabase(application))
     private val coordinateRepository = CoordinateRepository(AppDatabase.getDatabase(application))
+    private val calculateResultRepository =
+        CalculateResultRepository(AppDatabase.getDatabase(application))
 
     private val _insertErrorMessage = MutableLiveData<String>()
     val insertErrorMessage: LiveData<String> = _insertErrorMessage
@@ -32,7 +37,7 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    projectRepository.create(Project(name = name))
+                    projectRepository.createSync(Project(name = name))
                 } catch (e: SQLiteConstraintException) {
                     _insertErrorMessage.postValue("此專案已存在")
                 }
@@ -43,8 +48,8 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
     fun deleteProject(project: Project) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                coordinateRepository.deleteByProjectId(project.id)
-                projectRepository.delete(project)
+                coordinateRepository.deleteByProjectIdSync(project.id)
+                projectRepository.deleteSync(project)
             }
         }
     }
@@ -58,11 +63,13 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
     suspend fun getCoordinatesByProjectIdsSync(projectIds: List<Int>) =
         coordinateRepository.getCoordinatesByProjectIdsSync(projectIds)
 
+    suspend fun getCoordinateByIdSync(id: Int) = coordinateRepository.getCoordinateByIdSync(id)
+
     fun createCoordinate(coordinate: Coordinate) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    coordinateRepository.create(coordinate)
+                    coordinateRepository.createSync(coordinate)
                 } catch (e: SQLiteConstraintException) {
                     _insertErrorMessage.postValue("此點位名稱已存在")
                 }
@@ -74,7 +81,7 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    coordinateRepository.createAll(coordinates)
+                    coordinateRepository.createAllSync(coordinates)
                 } catch (e: SQLiteConstraintException) {
                     _insertErrorMessage.postValue("含有重複點位名稱")
                 }
@@ -86,7 +93,7 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    coordinateRepository.update(coordinate)
+                    coordinateRepository.updateSync(coordinate)
                 } catch (e: SQLiteConstraintException) {
                     _insertErrorMessage.postValue("此點位名稱已存在")
                 }
@@ -97,7 +104,7 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
     fun deleteCoordinate(coordinate: Coordinate) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                coordinateRepository.delete(coordinate)
+                coordinateRepository.deleteSync(coordinate)
             }
         }
     }
@@ -105,8 +112,8 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
     fun refreshProjectCoordinates(projectId: Int, coordinates: List<Coordinate>) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                coordinateRepository.deleteByProjectId(projectId)
-                coordinateRepository.createAll(coordinates)
+                coordinateRepository.deleteByProjectIdSync(projectId)
+                coordinateRepository.createAllSync(coordinates)
             }
         }
     }
@@ -174,6 +181,29 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
             }
         }
     }
+
+    private val _calculateResult = MutableLiveData<JSONObject?>()
+    val calculateResult: LiveData<JSONObject?> = _calculateResult
+    fun setCalculateResult(result: JSONObject?) {
+        _calculateResult.value = result
+    }
+
+    private val _saveResultErrorMessage = MutableLiveData<String>()
+    val saveResultErrorMessage: LiveData<String> = _saveResultErrorMessage
+
+    fun createCalculateResult(result: CalculateResult) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    calculateResultRepository.createSync(result)
+                } catch (e: SQLiteConstraintException) {
+                    _saveResultErrorMessage.postValue("此成果名稱已存在")
+                }
+            }
+        }
+    }
+
+    fun getCalculateResultsByType(type: String) = calculateResultRepository.getResultsByType(type)
 
     class Factory(private val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -1,4 +1,4 @@
-package com.mhy.landrestoration.database.coordinate
+package com.mhy.landrestoration.database.model
 
 import androidx.annotation.NonNull
 import androidx.room.Entity

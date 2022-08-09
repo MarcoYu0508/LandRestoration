@@ -1,18 +1,39 @@
 package com.mhy.landrestoration.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mhy.landrestoration.databinding.PointSelectLayoutBinding
 import com.mhy.landrestoration.model.SelectedPointItem
 
 class SelectedPointItemAdapter(
-    private val items: List<SelectedPointItem>,
-    private val mapChoose: (SelectedPointItem) -> Unit,
-    private val listChoose: (SelectedPointItem) -> Unit,
-    private val onItemDelete: (SelectedPointItem) -> Unit
+    private val mapChoose: (Int) -> Unit,
+    private val listChoose: (Int) -> Unit,
+    private val onItemDelete: ((Int) -> Unit)?
 ) :
-    RecyclerView.Adapter<SelectedPointItemAdapter.SelectedPointViewHolder>() {
+    ListAdapter<SelectedPointItem, SelectedPointItemAdapter.SelectedPointViewHolder>(DiffCallback) {
+
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<SelectedPointItem>() {
+            override fun areItemsTheSame(
+                oldItem: SelectedPointItem,
+                newItem: SelectedPointItem
+            ): Boolean {
+                return oldItem.name == newItem.name
+            }
+
+            override fun areContentsTheSame(
+                oldItem: SelectedPointItem,
+                newItem: SelectedPointItem
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedPointViewHolder {
         return SelectedPointViewHolder(
@@ -28,41 +49,50 @@ class SelectedPointItemAdapter(
     }
 
     override fun onBindViewHolder(holder: SelectedPointViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(position, getItem(position))
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-    class SelectedPointViewHolder(
+    inner class SelectedPointViewHolder(
         private var binding: PointSelectLayoutBinding,
-        private val mapChoose: (SelectedPointItem) -> Unit,
-        private val listChoose: (SelectedPointItem) -> Unit,
-        private val onItemDelete: (SelectedPointItem) -> Unit
+        private val mapChoose: (Int) -> Unit,
+        private val listChoose: (Int) -> Unit,
+        private val onItemDelete: ((Int) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: SelectedPointItem) {
+        fun bind(index: Int, item: SelectedPointItem) {
             binding.apply {
                 title.text = item.title
                 item.name?.let {
                     etPointName.setText(it)
                 }
+                etPointName.addTextChangedListener {
+                    item.name = it?.toString()
+                }
                 item.N?.let {
                     etN.setText(it.toString())
+                }
+                etN.addTextChangedListener {
+                    item.N = it?.toString()?.toDouble()
                 }
                 item.E?.let {
                     etE.setText(it.toString())
                 }
+                etE.addTextChangedListener {
+                    item.E = it?.toString()?.toDouble()
+                }
                 imgMapChoose.setOnClickListener {
-                    mapChoose(item)
+                    mapChoose(index)
                 }
                 imgListChoose.setOnClickListener {
-                    listChoose(item)
+                    listChoose(index)
                 }
-                imgRemove.setOnClickListener {
-                    onItemDelete(item)
+                if (item.isDeletable) {
+                    imgRemove.setOnClickListener {
+                        onItemDelete?.invoke(index)
+                    }
+                } else {
+                    imgRemove.visibility = View.GONE
                 }
             }
         }
