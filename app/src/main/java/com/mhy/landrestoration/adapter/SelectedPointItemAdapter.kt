@@ -53,7 +53,7 @@ class SelectedPointItemAdapter(
     }
 
     inner class SelectedPointViewHolder(
-        private var binding: PointSelectLayoutBinding,
+        private val binding: PointSelectLayoutBinding,
         private val mapChoose: (Int) -> Unit,
         private val listChoose: (Int) -> Unit,
         private val onItemDelete: ((Int) -> Unit)?

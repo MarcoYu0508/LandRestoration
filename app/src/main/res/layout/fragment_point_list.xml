@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/point_app_bar"
-                app:navigationIcon="@drawable/ic_baseline_close_24_white"
+                app:navigationIcon="@drawable/ic_baseline_navigate_before_24_white"
                 tools:title="點位列表" />
 
             <LinearLayout

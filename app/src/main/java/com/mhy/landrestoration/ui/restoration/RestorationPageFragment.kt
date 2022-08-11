@@ -41,7 +41,8 @@ abstract class RestorationPageFragment : Fragment() {
     abstract fun restorationType(): RestorationType
 
     private fun selectPointFromList() {
-
+        hideKeyboard()
+        findNavController().navigate(R.id.action_distanceFragment_to_selectPointListFragment)
     }
 
     private fun selectPointFromMap() {

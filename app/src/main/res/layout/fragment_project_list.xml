@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:menu="@menu/project_app_bar"
-                app:navigationIcon="@drawable/ic_baseline_close_24_white"
+                app:navigationIcon="@drawable/ic_baseline_navigate_before_24_white"
                 app:title="專案列表" />
         </com.google.android.material.appbar.AppBarLayout>
 

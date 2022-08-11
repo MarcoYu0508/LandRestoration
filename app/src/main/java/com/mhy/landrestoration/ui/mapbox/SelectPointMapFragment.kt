@@ -2,12 +2,14 @@ package com.mhy.landrestoration.ui.mapbox
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.mapbox.geojson.Feature
@@ -35,6 +37,7 @@ import com.mhy.landrestoration.R
 import com.mhy.landrestoration.util.BitmapUtil
 import com.mhy.landrestoration.util.CoordinateUtil
 import com.mhy.landrestoration.util.resize
+import com.mhy.landrestoration.viewmodels.CoordinateListViewModel
 import com.mhy.landrestoration.viewmodels.CoordinateSelectViewModel
 import kotlinx.coroutines.launch
 import org.json.JSONArray
@@ -47,8 +50,6 @@ private const val TAG = "SelectPointMapFragment"
 class SelectPointMapFragment : MapBoxFragment() {
 
     companion object {
-        const val STACK_NAME = "SelectPointByMap"
-
         private const val PLACE_ICON_ID = "place_icon_id"
         private const val GEOJSON_SOURCE_ID = "geojson-source-id"
         private const val UNCLUSTERED_POINT_LAYER_ID = "unclustered_point_layer_id"
