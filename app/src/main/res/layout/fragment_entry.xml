@@ -26,6 +26,13 @@
                 android:textSize="24sp" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRadiationMethod"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="@string/radiation_method"
+                android:textSize="24sp" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDistanceCalc"
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"

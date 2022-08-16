@@ -21,3 +21,9 @@ fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+fun CharSequence.splitIgnoreEmpty(vararg delimiters: String): List<String> {
+    return this.split(*delimiters).filter {
+        it.isNotEmpty()
+    }
+}

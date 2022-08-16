@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_entryFragment_to_distanceFragment"
             app:destination="@id/distanceFragment" />
+        <action
+            android:id="@+id/action_entryFragment_to_radiationFragment"
+            app:destination="@id/radiationFragment" />
     </fragment>
     <fragment
         android:id="@+id/projectListFragment"
@@ -42,7 +45,7 @@
         android:id="@+id/distanceFragment"
         android:name="com.mhy.landrestoration.ui.restoration.distance.DistanceFragment"
         android:label="DistanceFragment"
-        tools:layout="@layout/fragment_restoration">
+        tools:layout="@layout/fragment_distance_page">
         <action
             android:id="@+id/action_distanceFragment_to_selectPointMapFragment"
             app:destination="@id/selectPointMapFragment" />
@@ -60,5 +63,17 @@
         android:name="com.mhy.landrestoration.ui.SelectPointListFragment"
         android:label="fragment_select_point_list"
         tools:layout="@layout/fragment_select_point_list" />
+    <fragment
+        android:id="@+id/radiationFragment"
+        android:name="com.mhy.landrestoration.ui.restoration.radiation.RadiationFragment"
+        android:label="RadiationFragment"
+        tools:layout="@layout/fragment_radiation_page">
+        <action
+            android:id="@+id/action_radiationFragment_to_selectPointListFragment"
+            app:destination="@id/selectPointListFragment" />
+        <action
+            android:id="@+id/action_radiationFragment_to_selectPointMapFragment"
+            app:destination="@id/selectPointMapFragment" />
+    </fragment>
 
 </navigation>

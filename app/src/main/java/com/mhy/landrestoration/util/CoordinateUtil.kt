@@ -60,4 +60,45 @@ object CoordinateUtil {
 
         return Point.fromLngLat(lng, lat)
     }
+
+    fun convertToAngleDisplayText(angelStr: String): String {
+        val angleMinSec = angelStr.split("\\.".toRegex())
+        var angle = ""
+        var min = ""
+        var sec = ""
+        if (angleMinSec.size == 1) {
+            angle = angelStr
+        } else if (angleMinSec.size == 2) {
+            angle = angleMinSec[0]
+            val minSec = angleMinSec[1]
+            if (minSec.length <= 2) {
+                min = minSec
+            } else {
+                min = minSec.substring(0, 2)
+                sec = minSec.substring(2)
+            }
+        }
+        return (if (angle != "") angle else "0") + "°" + (if (min != "") "$min'" else "") + if (sec != "") sec + "\"" else ""
+    }
+
+     fun fromDisplayAngleStringToDegrees(displayStr: String): Double {
+        var angle = 0.0
+        val degree = displayStr.splitIgnoreEmpty("°")
+        if (degree.size == 1) {
+            if (degree[0] != "") angle += degree[0].toDouble()
+        } else {
+            if (degree[0] != "") angle += degree[0].toDouble()
+            val min = degree[1].splitIgnoreEmpty("'")
+            if (min.size == 1) {
+                if (min[0] != "") angle += min[0].toDouble() / 60
+            } else {
+                if (min[0] != "") angle += min[0].toDouble() / 60
+                val sec = min[1].splitIgnoreEmpty("\"")
+                if (sec.size == 1) {
+                    angle += sec[0].toDouble() / 3600
+                }
+            }
+        }
+        return angle
+    }
 }

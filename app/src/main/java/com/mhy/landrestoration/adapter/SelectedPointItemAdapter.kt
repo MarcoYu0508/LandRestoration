@@ -73,13 +73,17 @@ class SelectedPointItemAdapter(
                     etN.setText(it.toString())
                 }
                 etN.addTextChangedListener {
-                    item.N = it?.toString()?.toDouble()
+                    it?.apply {
+                        if(!isEmpty()) item.N = toString().toDouble()
+                    }
                 }
                 item.E?.let {
                     etE.setText(it.toString())
                 }
                 etE.addTextChangedListener {
-                    item.E = it?.toString()?.toDouble()
+                    it?.apply {
+                        if(!isEmpty()) item.E = toString().toDouble()
+                    }
                 }
                 imgMapChoose.setOnClickListener {
                     mapChoose(index)

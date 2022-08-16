@@ -1,9 +1,6 @@
 package com.mhy.landrestoration.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.mhy.landrestoration.database.model.CalculateResult
 import kotlinx.coroutines.flow.Flow
 
@@ -15,4 +12,7 @@ interface CalculateResultDao {
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertSync(result: CalculateResult)
+
+    @Delete
+    suspend fun deleteSync(result: CalculateResult)
 }

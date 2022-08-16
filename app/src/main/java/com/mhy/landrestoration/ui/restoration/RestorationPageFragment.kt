@@ -40,15 +40,9 @@ abstract class RestorationPageFragment : Fragment() {
 
     abstract fun restorationType(): RestorationType
 
-    private fun selectPointFromList() {
-        hideKeyboard()
-        findNavController().navigate(R.id.action_distanceFragment_to_selectPointListFragment)
-    }
+    abstract fun selectPointFromList()
 
-    private fun selectPointFromMap() {
-        hideKeyboard()
-        findNavController().navigate(R.id.action_distanceFragment_to_selectPointMapFragment)
-    }
+    abstract fun selectPointFromMap()
 
     protected fun showProjectSelectDialog(type: SelectPointDisplayType) {
         lifecycleScope.launch {

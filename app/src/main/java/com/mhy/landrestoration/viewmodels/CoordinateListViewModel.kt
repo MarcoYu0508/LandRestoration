@@ -205,6 +205,15 @@ class CoordinateListViewModel(application: Application) : AndroidViewModel(appli
 
     fun getCalculateResultsByType(type: String) = calculateResultRepository.getResultsByType(type)
 
+    fun deleteCalculateResult(result: CalculateResult) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                calculateResultRepository.deleteSync(result)
+            }
+        }
+    }
+
+
     class Factory(private val app: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(CoordinateListViewModel::class.java)) {

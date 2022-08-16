@@ -3,8 +3,6 @@
 
     <string name="import_data">導入資料</string>
     <string name="distance_calc">距離計算</string>
-
-
     <string name="delete">delete</string>
     <string name="inspection">檢視</string>
     <string name="export">導出</string>
@@ -19,10 +17,15 @@
     <string name="save_result">保存</string>
     <string name="calculate">計算</string>
     <string name="calculate_result">計算結果</string>
+    <string name="calculate_result_p">計算結果P</string>
     <string name="length_meter">L(m)</string>
     <string name="select">選擇</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search">搜尋</string>
+
+    <string name="distance_description">說明：已知點A、B坐標，求AB距離L</string>
+    <string name="radiation_method_description">說明：由測站(A)觀測一已知方向(B)與待測點(P)之角度(⍺)及AP距離(L)，計算得待測點(P)之坐標</string>
+    <string name="radiation_method">光線法</string>
+    <string name="angle_hint">⍺(度.分秒)</string>
+    <string name="length_angle">線段L, 角度⍺</string>
 
 </resources>

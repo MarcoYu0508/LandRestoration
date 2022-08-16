@@ -40,6 +40,11 @@ class EntryFragment : Fragment() {
             btnImport.setOnClickListener {
                 findNavController().navigate(R.id.action_entryFragment_to_projectListFragment)
             }
+
+            btnRadiationMethod.setOnClickListener {
+                findNavController().navigate(R.id.action_entryFragment_to_radiationFragment)
+            }
+
             btnDistanceCalc.setOnClickListener {
                 findNavController().navigate(R.id.action_entryFragment_to_distanceFragment)
             }

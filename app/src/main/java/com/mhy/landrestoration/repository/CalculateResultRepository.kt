@@ -13,4 +13,7 @@ class CalculateResultRepository(private val database: AppDatabase) {
 
     suspend fun createSync(result: CalculateResult) =
         database.calculateResultDao().insertSync(result)
+
+    suspend fun deleteSync(result: CalculateResult) =
+        database.calculateResultDao().deleteSync(result)
 }
