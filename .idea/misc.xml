@@ -18,24 +18,25 @@
         <entry key="app/src/main/res/layout/calculate_result.xml" value="0.4519025224454895" />
         <entry key="app/src/main/res/layout/calculate_result_dialog.xml" value="0.24882428388200087" />
         <entry key="app/src/main/res/layout/calculate_result_export.xml" value="0.5505208333333333" />
+        <entry key="app/src/main/res/layout/calculate_result_item.xml" value="0.24027362120564344" />
         <entry key="app/src/main/res/layout/dialog_input.xml" value="0.39492753623188404" />
         <entry key="app/src/main/res/layout/dialog_point_form.xml" value="0.3541666666666667" />
         <entry key="app/src/main/res/layout/fragment_calculate_result.xml" value="0.4390765284309534" />
         <entry key="app/src/main/res/layout/fragment_calculate_result_list_page.xml" value="0.4519025224454895" />
         <entry key="app/src/main/res/layout/fragment_calculate_result_page.xml" value="0.5505208333333333" />
-        <entry key="app/src/main/res/layout/fragment_distance_page.xml" value="0.5135869565217391" />
+        <entry key="app/src/main/res/layout/fragment_distance_page.xml" value="0.1726044226044226" />
         <entry key="app/src/main/res/layout/fragment_entry.xml" value="0.5348958333333333" />
         <entry key="app/src/main/res/layout/fragment_item.xml" value="0.53125" />
         <entry key="app/src/main/res/layout/fragment_item_list.xml" value="0.515625" />
         <entry key="app/src/main/res/layout/fragment_map_box.xml" value="0.39492753623188404" />
-        <entry key="app/src/main/res/layout/fragment_point_list.xml" value="0.53125" />
-        <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.515625" />
+        <entry key="app/src/main/res/layout/fragment_point_list.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_project_list.xml" value="0.4832330180567498" />
         <entry key="app/src/main/res/layout/fragment_radiation_page.xml" value="0.4519025224454895" />
         <entry key="app/src/main/res/layout/fragment_restoration.xml" value="0.5135869565217391" />
         <entry key="app/src/main/res/layout/fragment_restoration_page.xml" value="0.5135869565217391" />
         <entry key="app/src/main/res/layout/fragment_select_point_list.xml" value="0.4519025224454895" />
         <entry key="app/src/main/res/layout/item_callout_view.xml" value="0.5135869565217391" />
-        <entry key="app/src/main/res/layout/point_item.xml" value="0.53125" />
+        <entry key="app/src/main/res/layout/point_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/point_select_item.xml" value="0.4519025224454895" />
         <entry key="app/src/main/res/layout/point_select_layout.xml" value="0.5494791666666666" />
         <entry key="app/src/main/res/layout/project_item.xml" value="0.39492753623188404" />

@@ -36,7 +36,7 @@ object BitmapUtil {
     }
 }
 
-fun Bitmap.resize(maxWidth: Int, quality: Int = 100): Bitmap {
+fun Bitmap.resize(maxWidth: Int): Bitmap {
     val width = this.width
     val height = this.height
 

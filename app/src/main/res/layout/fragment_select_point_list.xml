@@ -77,7 +77,8 @@
             app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
             app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
             app:layout_constraintBottom_toTopOf="@+id/btnSelect"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/point_select_item" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSelect"

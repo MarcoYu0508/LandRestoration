@@ -1,14 +1,13 @@
 package com.mhy.landrestoration.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.mhy.landrestoration.database.model.CalculateResult
-import com.mhy.landrestoration.databinding.CalculateResultBinding
-import com.mhy.landrestoration.databinding.CalculateResultExportBinding
+import com.mhy.landrestoration.databinding.CalculateResultItemBinding
 
 class CalculateResultListAdapter(
     private val onItemInspect: (CalculateResult) -> Unit,
@@ -36,11 +35,7 @@ class CalculateResultListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalculateResultViewHolder {
-        val binding = if (isExport) CalculateResultExportBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ) else CalculateResultBinding.inflate(
+        val binding = CalculateResultItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -49,7 +44,8 @@ class CalculateResultListAdapter(
             binding,
             onItemInspect,
             onItemExport,
-            onItemDelete
+            onItemDelete,
+            isExport
         )
     }
 
@@ -58,36 +54,31 @@ class CalculateResultListAdapter(
     }
 
     inner class CalculateResultViewHolder(
-        private val binding: ViewBinding,
+        private val binding: CalculateResultItemBinding,
         private val onItemInspect: (CalculateResult) -> Unit,
         private val onItemExport: (CalculateResult) -> Unit,
-        private val onItemDelete: (CalculateResult) -> Unit
+        private val onItemDelete: (CalculateResult) -> Unit,
+        private val isExport: Boolean
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(calculateResult: CalculateResult) {
-            if (binding is CalculateResultBinding) {
-                binding.apply {
-                    tvName.text = calculateResult.name
-                    btnInspect.setOnClickListener {
-                        onItemInspect(calculateResult)
-                    }
-                    imgDelete.setOnClickListener {
-                        onItemDelete(calculateResult)
-                    }
+            binding.apply {
+                tvName.text = calculateResult.name
+                btnInspect.setOnClickListener {
+                    onItemInspect(calculateResult)
                 }
-            } else if (binding is CalculateResultExportBinding) {
-                binding.apply {
-                    tvName.text = calculateResult.name
-                    btnInspect.setOnClickListener {
-                        onItemInspect(calculateResult)
-                    }
+                if (isExport) {
+                    btnExport.visibility = View.VISIBLE
                     btnExport.setOnClickListener {
                         onItemExport(calculateResult)
                     }
-                    imgDelete.setOnClickListener {
-                        onItemDelete(calculateResult)
-                    }
+                } else {
+                    btnExport.visibility = View.GONE
+                }
+
+                imgDelete.setOnClickListener {
+                    onItemDelete(calculateResult)
                 }
             }
         }
